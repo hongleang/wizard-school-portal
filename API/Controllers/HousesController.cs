@@ -14,6 +14,12 @@ namespace API.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<House>>> GetHouseByName()
+        {
+            return await _context.Houses.ToListAsync();
+        }
+
         [HttpGet("{name}")]
         public async Task<ActionResult<House>> GetHouseByName(string name)
         {

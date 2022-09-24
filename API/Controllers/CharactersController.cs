@@ -28,7 +28,7 @@ namespace API.Controllers
 
             if (house != null)
             {
-                return await _context.Characters.Where(x => x.HouseId == house.Id).ToListAsync();
+                return await _context.Characters.Where(c => c.HouseId == house.Id).ToListAsync();
             }
 
             return NotFound("Items not found");

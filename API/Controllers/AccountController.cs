@@ -59,7 +59,7 @@ namespace API.Controllers
             // SingleOrDefaultAsync: throw an exception if there's a duplicate result.
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == loginDto.Username);
 
-            if (user == null) return Unauthorized("Invalid username!");
+            if (user == null) return Unauthorized("Invalid username");
 
             var hmac = new HMACSHA512(user.PasswordSalt);
 

@@ -24,10 +24,10 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUserById(int id)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<User>> GetUserByUsername(string username)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.Where(x => x.Username.ToLower() == username.ToLower()).FirstOrDefaultAsync();
         }
     }
 }
