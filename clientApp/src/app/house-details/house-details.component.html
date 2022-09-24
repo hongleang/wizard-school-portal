@@ -1,0 +1,31 @@
+<style>
+    .image {
+        position: relative;
+    }
+</style>
+
+<div class="pt-5 container">
+    <app-navbar></app-navbar>
+</div>
+
+<div class="w-75 mx-auto row justify-content-center align-items-center mt-5">
+    <div class="col-6 text-center p-5">
+        <h1 class="display-3" style="font-family: 'Times New Roman', Times, serif">Welcome to {{house?.name}}!</h1>
+        <p class="lead mx-auto mt-3 fw-light" style="font-family: 'Times New Roman', Times, serif">{{house?.value}}</p>
+        <p class="fst-italic lead w-75 mx-auto">"{{house?.motto}}"</p>
+        <p class="blockquote-footer mt-3">Harry Potter and the Philosopher's Stone</p>
+    </div>
+    <div class="col-5">
+        <img class="image w-100" src="../../assets/images/{{house?.name.toLowerCase()}}-gif.gif"
+            alt="{{house?.name}}-logo">
+        <a target="_blank" href="https://www.wizardingworld.com/features/stories-of-the-hogwarts-founders" class="mt-3 text-center link-dark fst-italic pe-auto">
+            Image from : https://www.wizardingworld.com/features/stories-of-the-hogwarts-founders
+        </a>
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <h2 class="display-5" style="font-family: 'Times New Roman', Times, serif">Notable alumni</h2>
+    <hr>
+    <app-characters-cards [characters]="characters"></app-characters-cards>
+</div>

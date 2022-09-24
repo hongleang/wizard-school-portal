@@ -1,0 +1,16 @@
+.login-page-left {
+    padding: 100px;
+}
+
+.login-form-cotainer {
+    max-width: 500px;
+    margin: auto auto;
+}
+
+.login-page-right {
+    overflow: hidden;
+}
+
+.login-page-right img {
+    object-fit: cover;
+}

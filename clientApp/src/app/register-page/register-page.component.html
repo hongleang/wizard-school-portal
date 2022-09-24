@@ -1,0 +1,135 @@
+<div class="w-100 vh-100 d-flex justify-content-center align-items-center bg-light">
+    <div class="register-form-container card p-5 shadow rounded rt">
+        <h1 class="text-center">Welcome potential member</h1>
+        <h4 class="text-center">Please enter your details to become one of us</h4>
+        <hr class="mb-5">
+        <form #registerForm="ngForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+            <alert *ngIf="registerError && errorMessage !== ''" type="danger">
+                <strong>Error!</strong> {{errorMessage}}
+            </alert>
+            <fieldset [disabled]="loading">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="firstName" class="form-label">First name</label>
+                        <input [(ngModel)]="model.firstName" #firstName="ngModel" pattern="[a-zA-Z]*"
+                            [ngClass]="{'is-invalid': registerForm.submitted && !firstName.valid}" name="firstName"
+                            type="text" class="form-control" id="firstName" placeholder="Kvothe" required
+                            maxlength="20">
+                        <div *ngIf="firstName.errors?.['required']" class="invalid-feedback">
+                            First name must not be empty.
+                        </div>
+                        <div *ngIf="firstName.errors?.['pattern']" class="invalid-feedback">
+                            Please provide a valid gender. Alphabet letter only A-Z.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="lastName" class="form-label">Last name</label>
+                        <input [(ngModel)]="model.lastName" #lastName="ngModel" pattern="[a-zA-Z]*"
+                            [ngClass]="{'is-invalid': registerForm.submitted && !lastName.valid}" name="lastName"
+                            type="text" class="form-control" placeholder="Granger" required maxlength="20">
+                        <div *ngIf="lastName.errors?.['required']" class="invalid-feedback">
+                            Last name must not be empty.
+                        </div>
+                        <div *ngIf="lastName.errors?.['pattern']" class="invalid-feedback">
+                            Please provide a valid gender. Alphabet letter only A-Z.
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text">@</span>
+                            <input [(ngModel)]="model.username" #username="ngModel" pattern="^[a-zA-Z]+[\d]{2}$"
+                                [ngClass]="{'is-invalid': registerForm.submitted && !username.valid}" name="username"
+                                type="text" class="form-control" id="username" placeholder="kvothe12" required>
+                            <div *ngIf="username.errors?.['required']" class="invalid-feedback">
+                                Username must not be empty.
+                            </div>
+                            <div *ngIf="registerForm.submitted && username.errors?.['pattern']"
+                                class="invalid-feedback">
+                                Your username needs to begin with letters and end with 2 digits number.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group has-validation">
+                            <input [(ngModel)]="model.password" #password="ngModel"
+                                [ngClass]="{'is-invalid': registerForm.submitted && !password.valid}" name="password"
+                                type="password" class="form-control" id="password" required>
+                            <div *ngIf="username.errors?.['required']" class="invalid-feedback">
+                                Password must not be empty.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="state" class="form-label">Gender</label>
+                        <select [(ngModel)]="model.gender" #gender="ngModel"
+                            [ngClass]="{'is-invalid': registerForm.submitted && !gender.valid}" name="gender"
+                            class="form-select" id="gender" required>
+                            <option value="">Choose...</option>
+                            <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+                        </select>
+                        <div *ngIf="registerForm.submitted && !gender.valid" class="invalid-feedback">
+                            Please provide a valid gender.
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="state" class="form-label">Species</label>
+                        <select [(ngModel)]="model.species" #speciesInput="ngModel"
+                            [ngClass]="{'is-invalid': registerForm.submitted && !speciesInput.valid}" name="species"
+                            class="form-select" id="species" required>
+                            <option value="">Choose...</option>
+                            <option *ngFor="let spec of species" [value]="spec">{{spec}}</option>
+
+                        </select>
+                        <div *ngIf="registerForm.submitted && !speciesInput.valid" class="invalid-feedback">
+                            Please provide a valid species.
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="state" class="form-label">Date of birth</label>
+                        <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker
+                            [minDate]="minDate" [maxDate]="maxDate">
+                        <div *ngIf="registerForm.submitted && !houseInput.valid" class="invalid-feedback">
+                            Please provide a valid houses.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="state" class="form-label me-3">Enrol to House </label>
+                        <a routerLink="" class="fw-bold">Learn more</a>
+                        <div class="row">
+                            <div class="col-10">
+                                <select [(ngModel)]="model.houseId" #houseInput="ngModel"
+                                    [ngClass]="{'is-invalid': registerForm.submitted && !houseInput.valid}" name="house"
+                                    class="form-select" id="houses" required>
+                                    <option value="">Choose...</option>
+                                    <option *ngFor="let house of houses" [value]="house.id">{{house.name}}</option>
+                                </select>
+                                <div *ngIf="registerForm.submitted && !houseInput.valid" class="invalid-feedback">
+                                    Please provide a valid houses.
+                                </div>
+                            </div>
+                            <ng-template #tolTemplate>
+                                <img class="img-fluid"
+                                    src="https://images.unsplash.com/photo-1663801308681-554d5cf1182c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
+                                    alt="">
+                                <h3>Just another: content</h3>
+                            </ng-template>
+                            <div *ngIf="houseInput.value > 0"
+                                class="col-2 d-flex justify-content-center align-items-center">
+                                <button (click)="prevenDefault($event)" class="btn btn-sm btn-dark rounded-circle"
+                                    [tooltip]="tolTemplate">??</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <button [disabled]="registerForm.submitted && !registerForm.valid" class="w-100 btn btn-dark"
+                    type="submit">Register</button>
+            </fieldset>
+        </form>
+    </div>
+</div>

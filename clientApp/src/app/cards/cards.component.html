@@ -1,0 +1,30 @@
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div  *ngIf="houses && houses.length > 0" class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+            <div *ngFor="let house of houses" class="col">
+                <div class="card shadow-sm" [ngClass]="{'border border-dark border-2': userDetails?.houseId === house.id}">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                        xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                        preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <image
+                            href="https://images.unsplash.com/photo-1598153346810-860daa814c4b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                            width="100%" height="100%" />
+                    </svg>
+
+                    <div class="card-body">
+                        <h3 class="card-title">{{house.name[0]}}<span
+                                class="text-muted fw-light">{{house.name.slice(1)}} House</span></h3>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="btn-group">
+                                <a routerLink="/house/{{house.name}}" type="button" class="btn btn-sm btn-outline-secondary">Details</a>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Notable alumni</button>
+                            </div>
+                            <small *ngIf="userDetails?.houseId !== house.id" class="text-muted">House</small>
+                            <small *ngIf="userDetails?.houseId === house.id" class="text-muted fw-bold">Enrolled</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
