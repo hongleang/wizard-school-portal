@@ -6,6 +6,8 @@ School portal for accepted witches and wizard. Build with dotnet and angular as 
 ![image](https://user-images.githubusercontent.com/73740288/192081993-74b60322-0fb9-46c8-9b0a-7abfb315c7b1.png)
 ![image](https://user-images.githubusercontent.com/73740288/192081999-57473c9e-ad77-4265-a1d0-ab9c43e95d3d.png)
 
+https://drive.google.com/file/d/1GC6oD0tQQbYJ0ZKFC_q0lWhAlYYQUNO8/view?usp=drivesdk
+
 ## Installation and running the app
 In order to run the application, you need to run the api and client application separately
 
