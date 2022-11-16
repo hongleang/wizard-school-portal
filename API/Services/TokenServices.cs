@@ -1,13 +1,10 @@
-﻿using API.Entities;
-using API.Interfaces;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
+using SchoolPortalAPI.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace API.Services
+namespace SchoolPortalAPI.Services
 {
     public class TokenService : ITokenServices
     {
@@ -19,9 +16,9 @@ namespace API.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
-        public string CreateToken(User user)
+        public string CreateToken(/*User user*/)
         {
-            var claims = new List<Claim>
+            /*var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username)
             };
@@ -38,7 +35,8 @@ namespace API.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return tokenHandler.WriteToken(token);
+            return tokenHandler.WriteToken(token);*/
+            return "";
         }
 
     }

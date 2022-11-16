@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace API.DTOs
+﻿namespace SchoolPortalAPI.DTOs.UserDtos
 {
     public class UserDto
     {

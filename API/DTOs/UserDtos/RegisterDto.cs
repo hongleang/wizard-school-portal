@@ -1,8 +1,6 @@
-﻿using API.Entities;
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace API.DTOs
+namespace SchoolPortalAPI.DTOs.UserDtos
 {
     public class RegisterDto
     {

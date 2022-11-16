@@ -1,4 +1,4 @@
-﻿namespace API.DTOs
+﻿namespace SchoolPortalAPI.DTOs.UserDtos
 {
     public class LoginDto
     {

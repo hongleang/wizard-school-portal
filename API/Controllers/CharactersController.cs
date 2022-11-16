@@ -1,10 +1,10 @@
-﻿using API.Data;
-using API.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SchoolPortalAPI.Data;
+using SchoolPortalAPI.Entities;
 
-namespace API.Controllers
+namespace SchoolPortalAPI.Controllers
 {
     public class CharactersController : BaseApiController
     {

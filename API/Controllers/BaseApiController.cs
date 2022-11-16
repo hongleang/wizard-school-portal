@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers
+namespace SchoolPortalAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

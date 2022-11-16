@@ -1,9 +1,9 @@
-﻿using API.Entities;
+﻿using SchoolPortalAPI.Entities;
 
-namespace API.Interfaces
+namespace SchoolPortalAPI.Interfaces
 {
     public interface ITokenServices
     {
-        string CreateToken(User user);
+        string CreateToken(/*User user*/);
     }
 }

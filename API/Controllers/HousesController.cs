@@ -1,9 +1,9 @@
-﻿using API.Data;
-using API.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SchoolPortalAPI.Data;
+using SchoolPortalAPI.Entities;
 
-namespace API.Controllers
+namespace SchoolPortalAPI.Controllers
 {
     public class HousesController : BaseApiController
     {
