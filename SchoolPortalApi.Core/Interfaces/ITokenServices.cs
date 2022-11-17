@@ -1,6 +1,6 @@
 ﻿using SchoolPortalAPI.Entities;
 
-namespace SchoolPortalAPI.Interfaces
+namespace SchoolPortalApi.Core.Interfaces
 {
     public interface ITokenServices
     {

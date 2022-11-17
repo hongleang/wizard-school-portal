@@ -10,6 +10,6 @@ public class House
     public string Motto { get; set; }
     public string LogoUrl { get; set; }
     public int FounderId { get; set; }
-    public Founder? Founder { get; set; }
-    public ICollection<Character>? Characters { get; set; }
+    public Founder Founder { get; set; }
+    public ICollection<Character> Characters { get; set; }
 }

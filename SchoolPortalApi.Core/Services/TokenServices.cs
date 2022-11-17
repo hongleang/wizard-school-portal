@@ -1,10 +1,11 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using SchoolPortalAPI.Interfaces;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using SchoolPortalApi.Core.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace SchoolPortalAPI.Services
+namespace SchoolPortalApi.Core.Services
 {
     public class TokenService : ITokenServices
     {

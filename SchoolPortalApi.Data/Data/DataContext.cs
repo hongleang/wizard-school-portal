@@ -16,8 +16,10 @@ namespace SchoolPortalAPI.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder
-                .ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new FoundersConfiguration());
+            modelBuilder.ApplyConfiguration(new HouseConfiguration());
+            modelBuilder.ApplyConfiguration(new CharactersConfiguration());
         }
 
         public DbSet<Founder> Founders { get; set; }

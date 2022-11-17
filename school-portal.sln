@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolPortalAPI", "API\Scho
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "school-portal", "clientApp\school-portal.esproj", "{075E8211-C78A-434B-AC3C-70F9C17079EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolPortalApi.Core", "SchoolPortalApi.Core\SchoolPortalApi.Core.csproj", "{DC6399E0-DE6C-484E-A7AD-801E2632FF8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolPortalApi.Data", "SchoolPortalApi.Data\SchoolPortalApi.Data.csproj", "{FC2FFC45-74BE-4E6E-B3C3-880A7D544CD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{075E8211-C78A-434B-AC3C-70F9C17079EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{075E8211-C78A-434B-AC3C-70F9C17079EF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{075E8211-C78A-434B-AC3C-70F9C17079EF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DC6399E0-DE6C-484E-A7AD-801E2632FF8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC6399E0-DE6C-484E-A7AD-801E2632FF8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC6399E0-DE6C-484E-A7AD-801E2632FF8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC6399E0-DE6C-484E-A7AD-801E2632FF8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC2FFC45-74BE-4E6E-B3C3-880A7D544CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC2FFC45-74BE-4E6E-B3C3-880A7D544CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC2FFC45-74BE-4E6E-B3C3-880A7D544CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC2FFC45-74BE-4E6E-B3C3-880A7D544CD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

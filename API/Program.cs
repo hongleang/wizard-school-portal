@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SchoolPortalAPI.Data;
-using SchoolPortalAPI.Interfaces;
-using SchoolPortalAPI.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +23,7 @@ builder.Services.AddCors();
 
 /*builder.Services.AddScoped<ITokenServices, TokenService>();*/
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+/*builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters()
@@ -35,7 +33,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = false,
             ValidateAudience = false
         };
-    });
+    });*/
 
 
 var app = builder.Build();
