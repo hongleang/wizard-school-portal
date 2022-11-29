@@ -1,9 +1,9 @@
-﻿using SchoolPortalAPI.Entities;
+﻿using SchoolPortalApi.Data.Entities;
 
 namespace SchoolPortalApi.Core.Interfaces
 {
     public interface ITokenServices
     {
-        string CreateToken(/*User user*/);
+        Task<string> CreateToken(User user);
     }
 }

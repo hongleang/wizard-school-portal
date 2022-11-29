@@ -8,6 +8,12 @@ namespace SchoolPortalAPI.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<House> builder)
         {
+            HouseSeeding(builder);
+        }
+
+        private void HouseSeeding(EntityTypeBuilder<House> builder)
+        {
+
             // Seeding Initial data
             builder.HasData(
                 new House()

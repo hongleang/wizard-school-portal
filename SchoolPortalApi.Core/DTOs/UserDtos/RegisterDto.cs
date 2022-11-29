@@ -11,19 +11,22 @@ namespace SchoolPortalAPI.DTOs.UserDtos
         public string LastName { get; set; }
 
         [Required]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required]
-        [MaxLength(20)]
         public string Password { get; set; }
 
         [Required]
-        public string Species { get; set; }
+        public string Email { get; set; }
 
         [Required]
-        public int HouseId { get; set; }
+        public string Gender { get; set; }
+        public string? ImageUrl { get; set; } = null;
 
         [Required]
         public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        public int HouseId { get; set; }
     }
 }

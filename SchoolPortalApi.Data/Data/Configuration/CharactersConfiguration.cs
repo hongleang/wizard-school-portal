@@ -8,6 +8,11 @@ namespace SchoolPortalAPI.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Character> builder)
         {
+            CharacterSeeding(builder);
+        }
+
+        private void CharacterSeeding(EntityTypeBuilder<Character> builder)
+        {
             // Seeding Initial data
             builder.HasData(
                 new Character()
@@ -25,49 +30,49 @@ namespace SchoolPortalAPI.Data.Configuration
                     Gender = "female",
                     ImageUrl = "http://hp-api.herokuapp.com/images/hermione.jpeg,Gryffindor",
                     HouseId = 1
-                },new Character()
+                }, new Character()
                 {
                     Id = 3,
                     Name = "Ron Weasley",
                     Gender = "male",
                     ImageUrl = "http://hp-api.herokuapp.com/images/ron.jpg,Gryffindor",
                     HouseId = 1
-                },new Character()
+                }, new Character()
                 {
                     Id = 4,
                     Name = "Draco Malfoy",
                     Gender = "male",
                     ImageUrl = "http://hp-api.herokuapp.com/images/draco.jpg,Slytherin",
                     HouseId = 4
-                },new Character()
+                }, new Character()
                 {
                     Id = 5,
                     Name = "Bellatrix Lestrange",
                     Gender = "female",
                     ImageUrl = "http://hp-api.herokuapp.com/images/bellatrix.jpg,Slytherin",
                     HouseId = 4
-                },new Character()
+                }, new Character()
                 {
                     Id = 6,
                     Name = "Cho Chang",
                     Gender = "female",
                     ImageUrl = "http://hp-api.herokuapp.com/images/cho.jpg,Ravenclaw",
                     HouseId = 3
-                },new Character()
+                }, new Character()
                 {
                     Id = 7,
                     Name = "Luna Lovegood",
                     Gender = "female",
                     ImageUrl = "http://hp-api.herokuapp.com/images/luna.jpg,Ravenclaw",
                     HouseId = 3
-                },new Character()
+                }, new Character()
                 {
                     Id = 8,
                     Name = "Cedric Diggory",
                     Gender = "male",
                     ImageUrl = "http://hp-api.herokuapp.com/images/cedric.png,Hufflepuff",
                     HouseId = 2
-                },new Character()
+                }, new Character()
                 {
                     Id = 9,
                     Name = "Nymphadora Tonks",

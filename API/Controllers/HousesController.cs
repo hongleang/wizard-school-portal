@@ -1,29 +1,49 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SchoolPortalAPI.Data;
+using SchoolPortalApi.Core.DTOs.HouseDtos;
+using SchoolPortalApi.Core.Interfaces.IRepositories;
 using SchoolPortalAPI.Entities;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SchoolPortalAPI.Controllers
 {
     public class HousesController : BaseApiController
     {
-        private readonly DataContext _context;
+        private readonly IHouseRepository _houseRepository;
 
-        public HousesController(DataContext context)
+        public HousesController(IHouseRepository houseRepository)
         {
-            _context = context;
+            _houseRepository = houseRepository;
         }
 
+        // GET: api/houses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<House>>> GetHouseByName()
+        public async Task<ActionResult<IEnumerable<ViewHouseDto>>> GetHouses()
         {
-            return await _context.Houses.ToListAsync();
+            return Ok(await _houseRepository.GetAllAsync<ViewHouseDto>());
         }
 
-        [HttpGet("{name}")]
-        public async Task<ActionResult<House>> GetHouseByName(string name)
+        // GET api/houses/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ViewHouseDto>> GetHouse(int? id)
+        {            
+            return await _houseRepository.GetAsync<ViewHouseDto>(id);
+        }
+
+        // PUT api/houses/5
+        [HttpPut("{id}")]
+        public async Task<ActionResult<House>> UpdateHouse(int id, [FromBody] UpdateHouseDto houseDto)
         {
-            return await _context.Houses.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+            try
+            {
+                await _houseRepository.UpdateAsync<UpdateHouseDto>(id, houseDto);
+                return NoContent();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }

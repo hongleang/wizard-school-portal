@@ -8,6 +8,11 @@ namespace SchoolPortalAPI.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Founder> builder)
         {
+            FounderSeeding(builder);         
+        }
+
+        private void FounderSeeding(EntityTypeBuilder<Founder> builder)
+        {
             // Seeding Initial data
             builder.HasData(
                 new Founder()

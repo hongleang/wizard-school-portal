@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SchoolPortalApi.Core.Interfaces;
+using SchoolPortalApi.Data.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -11,24 +13,43 @@ namespace SchoolPortalApi.Core.Services
     {
         // encrypt and decrypt electronic key -- remain on the server
         private readonly SymmetricSecurityKey _key;
-        public TokenService(IConfiguration config)
+        private readonly UserManager<User> _userManager;
+        private readonly IConfiguration _config;
+
+        public TokenService(UserManager<User> userManager, IConfiguration config)
         {
             // Encoding.UTF8 : encode the byte password
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:key"]));
+            _userManager = userManager;
+            _config = config;
         }
 
-        public string CreateToken(/*User user*/)
+        public async Task<string> CreateToken(User user)
         {
-            /*var claims = new List<Claim>
+            var roles = await _userManager.GetRolesAsync(user);
+            var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
+            var userClaims = await _userManager.GetClaimsAsync(user);
+
+            var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+            claims.AddRange(roleClaims);
+            claims.AddRange(userClaims);
+
+            var creds = new SigningCredentials(
+                _key, SecurityAlgorithms.HmacSha512Signature
+                );
+
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.Now.AddDays(1),
+                Issuer = _config["Jwt:Issuer"],
+                Audience = _config["Jwt:Audience"],
                 SigningCredentials = creds
             };
 
@@ -36,9 +57,7 @@ namespace SchoolPortalApi.Core.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return tokenHandler.WriteToken(token);*/
-            return "";
+            return tokenHandler.WriteToken(token);
         }
-
     }
 }
