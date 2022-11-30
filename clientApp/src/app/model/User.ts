@@ -7,9 +7,9 @@ export interface UserRegisteration {
     firstName : string;
     lastName : string;
     username: string;
+    email: string;
     gender: string;
     password: string;
-    species: string;
     dateOfBirth: Date;
     houseId: Number;
 }

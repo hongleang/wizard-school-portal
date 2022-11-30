@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HouseResponse } from '../model/House';
 import { QueryServiceService } from '../_services/query-service.service';
 
 @Component({
@@ -9,9 +10,7 @@ import { QueryServiceService } from '../_services/query-service.service';
 })
 export class HouseDetailsComponent implements OnInit {
   houseName: string = '';
-  house: any;
-
-  characters: any;
+  house: HouseResponse = <HouseResponse>{ };
 
   constructor(private queryService: QueryServiceService, private route: ActivatedRoute) {
     route.params.subscribe((params) => {
@@ -25,27 +24,13 @@ export class HouseDetailsComponent implements OnInit {
   }
 
   getHouseDetails() {
-    return this.queryService.getHouse(this.houseName).subscribe({
-      next: response => {
-        if (response) {
-          this.house = response;
-          this.getCharacters(response);
-        }
+    return this.queryService.getHouses().subscribe({
+      next: (response)=> {
+        if(response !== null){
+          this.house = response?.find(r => r.name === this.houseName) || <HouseResponse>{ };          
+        }        
       },
       error: err => console.log(err)
     });
   }
-
-  getCharacters(house: any) {
-    return this.queryService.getCharacters().subscribe({
-      next: response => {
-        if (house) {
-          this.characters = response
-          this.characters = this.characters.filter((c: any) => c.houseId === house.id)
-        }
-      },
-      error: err => console.log(err),
-    })
-  }
-
 }

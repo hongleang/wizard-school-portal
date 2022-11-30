@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Characters } from '../model/House';
 
 @Component({
   selector: 'app-characters-cards',
@@ -6,14 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./characters-cards.component.css']
 })
 export class CharactersCardsComponent implements OnInit {
-  @Input() characters: any;
+  @Input() characters: Characters[] = [];
 
   constructor() { }
 
   ngOnInit(): void { }
-
-  characterImage(id: number) {
-    return this.characters[id].imageUrl;
-  }
 
 }

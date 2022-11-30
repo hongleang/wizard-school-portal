@@ -16,7 +16,7 @@ export class RegisterPageComponent implements OnInit {
     username: '',
     gender: '',
     password: '',
-    species: '',
+    email: '',
     houseId: 0,
     dateOfBirth: new Date()
   };
@@ -58,6 +58,8 @@ export class RegisterPageComponent implements OnInit {
         }
       },
       error: err => {
+        console.log(err.error);
+        
         this.loading = false;
         this.registerError = true;
         this.errorMessage = err.error || "Unknown error!";

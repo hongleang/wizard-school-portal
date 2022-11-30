@@ -52,6 +52,17 @@
                         </div>
                     </div>
                     <div class="col-12">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <input [(ngModel)]="model.email" #email="ngModel"
+                                [ngClass]="{'is-invalid': registerForm.submitted && !email.valid}" name="email"
+                                type="email" class="form-control" id="email" placeholder="kvothe@gmail.com" required>
+                            <div *ngIf="email.errors?.['required']" class="invalid-feedback">
+                                Email must not be empty.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group has-validation">
                             <input [(ngModel)]="model.password" #password="ngModel"
@@ -72,19 +83,6 @@
                         </select>
                         <div *ngIf="registerForm.submitted && !gender.valid" class="invalid-feedback">
                             Please provide a valid gender.
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="state" class="form-label">Species</label>
-                        <select [(ngModel)]="model.species" #speciesInput="ngModel"
-                            [ngClass]="{'is-invalid': registerForm.submitted && !speciesInput.valid}" name="species"
-                            class="form-select" id="species" required>
-                            <option value="">Choose...</option>
-                            <option *ngFor="let spec of species" [value]="spec">{{spec}}</option>
-
-                        </select>
-                        <div *ngIf="registerForm.submitted && !speciesInput.valid" class="invalid-feedback">
-                            Please provide a valid species.
                         </div>
                     </div>
 
