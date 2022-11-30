@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using SchoolPortalApi.Core.Exceptions;
 using SchoolPortalApi.Core.Interfaces;
 using SchoolPortalApi.Core.Interfaces.IAauthManager;
 using SchoolPortalApi.Data.Entities;
@@ -24,12 +22,9 @@ namespace SchoolPortalApi.Core.Repository
             _tokenServices = tokenServices;
         }
 
-        public async Task<UserDto> GetUserAsync(string email)
+        public async Task<UserDto> GetUserAsync(string userName)
         {
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null) throw new NotFoundException(
-                $"Can't find a user with a email of {email}"
-            );
+            var user = await _userManager.FindByNameAsync(userName);
 
             return _mapper.Map<UserDto>(user);
         }
@@ -42,16 +37,9 @@ namespace SchoolPortalApi.Core.Repository
 
         public async Task<UserDto> Login(LoginDto login)
         {
-            var user = await _userManager.FindByEmailAsync(login.Email);
+            var user = await _userManager.FindByNameAsync(login.UserName);
             bool validUser = await _userManager.CheckPasswordAsync(user, login.Password);
 
-            if (user == null) throw new NotFoundException(
-                $"Can't find a user with an email {login.Email}"
-            );
-
-            if (!validUser) throw new UnAuthorizedException(
-                $"Password doesn't match with user: ${login.Email}"
-            );
 
             var token = await _tokenServices.CreateToken(user);
 

@@ -10,6 +10,6 @@ namespace SchoolPortalApi.Core.Interfaces.IRepositories
 {
     public interface ICharacterRepository : IGenericRepository<Character>
     {
-        Task<ViewCharacterDto> GetCharacterDetails(int id);
+        Task<ViewCharacterDto?> GetCharacterDetails(int id);
     }
 }

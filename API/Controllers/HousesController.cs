@@ -27,23 +27,21 @@ namespace SchoolPortalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ViewHouseDto>> GetHouse(int? id)
         {            
-            return await _houseRepository.GetAsync<ViewHouseDto>(id);
+            var house = await _houseRepository.GetAsync<ViewHouseDto>(id);
+            return house == null ? NotFound(id) : house;
         }
 
         // PUT api/houses/5
         [HttpPut("{id}")]
         public async Task<ActionResult<House>> UpdateHouse(int id, [FromBody] UpdateHouseDto houseDto)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                await _houseRepository.UpdateAsync<UpdateHouseDto>(id, houseDto);
-                return NoContent();
+                return BadRequest(ModelState);
             }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            
+
+            bool isUpdated = await _houseRepository.UpdateAsync<UpdateHouseDto>(id, houseDto);
+            return isUpdated ? NoContent() : NotFound(id);            
         }
     }
 }

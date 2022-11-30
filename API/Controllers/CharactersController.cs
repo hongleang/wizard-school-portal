@@ -27,38 +27,44 @@ namespace SchoolPortalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ViewCharacterDto>> GetCharacter(int id)
         {
-            return await _characterRepository.GetCharacterDetails(id);
+            var character = await _characterRepository.GetCharacterDetails(id);
+            return character == null ? NotFound() : character;
         }
 
         // PUT api/characters/5
         [HttpPut("{id}")]
         public async Task<ActionResult<Character>> UpdateCharacter(int id, [FromBody] UpdateCharacterDto characterDto)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                await _characterRepository.UpdateAsync<UpdateCharacterDto>(id, characterDto);
-                return NoContent();
+                return BadRequest(ModelState);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            bool isUpdated = await _characterRepository.UpdateAsync<UpdateCharacterDto>(id, characterDto);
+            return isUpdated ? NoContent() : NotFound(id);
+
         }
 
         // POST api/characters
-        [HttpPost("{id}")]
+        [HttpPost]
         public async Task<ActionResult<Character>> CreateCharacter([FromBody] CreateCharacterDto characterDto)
         {
-            var newEntity = await _characterRepository.AddAsync<CreateCharacterDto, Character>(characterDto);
-            return CreatedAtAction(nameof(GetCharacter), new { id = newEntity.Id }, newEntity);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _characterRepository.AddAsync<CreateCharacterDto, Character>(characterDto);
+
+            return CreatedAtAction("CreatedNewCharacter", new { }, new { Name = characterDto.Name, Gender = characterDto.Gender });
         }
 
         // PUT api/characters/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Character>> DelteCharacter(int id)
         {
-            await _characterRepository.DeleteAsync(id);
-            return NoContent();
+            bool isDelted = await _characterRepository.DeleteAsync(id);
+            return isDelted ? NoContent(): NotFound(id);
         }
     }
 }

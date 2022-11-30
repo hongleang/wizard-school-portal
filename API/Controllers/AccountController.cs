@@ -8,19 +8,19 @@ using SchoolPortalAPI.DTOs.UserDtos;
 
 namespace SchoolPortalAPI.Controllers
 {
-    public class AccountsController : BaseApiController
+    public class AccountController : BaseApiController
     {
         private readonly IAuthManager _authManager;
-        private readonly ILogger<AccountsController> _logger;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountsController(IAuthManager authManager, ILogger<AccountsController> logger)
+        public AccountController(IAuthManager authManager, ILogger<AccountController> logger)
         {
             _authManager = authManager;
             _logger = logger;
         }
 
         // GET: api/account
-        [HttpGet("/users")]
+        [HttpGet("users")]
         [Authorize(Roles = "admin")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
@@ -29,7 +29,7 @@ namespace SchoolPortalAPI.Controllers
         }
 
         // GET api/account/example@gamil.com
-        [HttpGet("/users/{userEmail}")]
+        [HttpGet("users/{userEmail}")]
         public async Task<ActionResult<UserDto>> GetUser(string userEmail)
         {
             _logger.LogInformation($"admin requests a user details");
@@ -37,14 +37,14 @@ namespace SchoolPortalAPI.Controllers
         }
 
         // POST api/account/login
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto)
         {
             return Ok(await _authManager.Login(loginDto));
         }
 
         // POST api/account/register
-        [HttpPost("/register")]
+        [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto registerDto)
         {
             var errors = await _authManager.Register(registerDto);

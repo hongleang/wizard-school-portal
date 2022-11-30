@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SchoolPortalApi.Core.Exceptions;
 using SchoolPortalApi.Core.Interfaces.IRepositories;
 using SchoolPortalAPI.Data;
 using SchoolPortalAPI.Entities;
@@ -39,11 +38,6 @@ namespace SchoolPortalApi.Core.Repository
                 .Include(x => x.Characters)
                 .Include(x => x.Founder)
                 .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (entity == null)
-            {
-                throw new NotFoundException($"Can't find an entity with an id of '{id}' while processing {nameof(GetAsync)}");
-            };
 
             return _mapper.Map<TResult>(entity);
         }

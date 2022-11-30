@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using SchoolPortalApi.Core.Exceptions;
 using SchoolPortalApi.Core.Middlewares.ExceptionModel;
 using System.Net;
 
@@ -39,23 +38,9 @@ namespace SchoolPortalApi.Core.Middlewares
             var errorDetails = new ErrorDetails()
             {
                 StatusCode = (int)statusCode,
+                ErrorType = "Internal server error",
                 Message = ex.Message
             };
-
-            switch (ex)
-            {
-                case NotFoundException:
-                    statusCode = HttpStatusCode.NotFound;
-                    errorDetails.StatusCode = (int)statusCode;
-                    break;
-
-                case UnAuthorizedException:
-                    statusCode = HttpStatusCode.Unauthorized;
-                    errorDetails.StatusCode = (int)statusCode;
-                    break;
-                default:
-                    break;
-            }
 
             string response = JsonConvert.SerializeObject(errorDetails);
             context.Response.StatusCode = (int)statusCode;

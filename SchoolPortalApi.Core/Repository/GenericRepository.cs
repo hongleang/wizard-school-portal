@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SchoolPortalApi.Core.Exceptions;
 using SchoolPortalApi.Core.Interfaces.IRepositories;
 using SchoolPortalAPI.Data;
-using SchoolPortalAPI.Entities;
 
 namespace SchoolPortalApi.Core.Repository
 {
@@ -24,59 +22,56 @@ namespace SchoolPortalApi.Core.Repository
             return _mapper.Map<IEnumerable<TResult>>(entities);
         }
 
-        public virtual async Task<TResult> GetAsync<TResult>(int? id)
+        public virtual async Task<TResult?> GetAsync<TResult>(int? id)
         {
-            if(id == null) return default;
-
             var entity = await _context.Set<T>().FindAsync(id);
-            if (entity == null)
-            {
-                throw new NotFoundException($"Can't find an entity with an id of '{id}' while processing {nameof(GetAsync)}");
-            };
             return _mapper.Map<TResult>(entity);
         }
-        public async Task<TResult> AddAsync<TSource, TResult>(TSource entity)
+        public async Task AddAsync<TSource, TResult>(TSource entity)
         {
             var newEntity = _mapper.Map<T>(entity);
 
             await _context.Set<T>().AddAsync(newEntity);
             await _context.SaveChangesAsync();
-
-            return _mapper.Map<TResult>(newEntity);
         }
 
-        public async Task UpdateAsync<TSource>(int id, TSource newEntity)
+        public async Task<bool> UpdateAsync<TSource>(int id, TSource newEntity)
         {
             var entity = await GetAsync<T>(id);
 
-            if (entity == null)
-            {
-                throw new NotFoundException($"Can't find an entity with an id of '{id}' while processing {nameof(UpdateAsync)}");
-            };
-
             _mapper.Map(newEntity, entity);
 
-            _context.Set<T>().Update(entity);
-            await _context.SaveChangesAsync();
+            if (entity == null) return false;
+
+            try
+            {
+                _context.Set<T>().Update(entity);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"Something went wrong while saving {entity.GetType()} to DbSet", ex);
+            }
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var entity = await _context.Set<T>().FindAsync(id);
-            
-            if (entity == null)
+
+            if (entity == null) return false;
+
+            try
             {
-                throw new NotFoundException($"Can't find an entity with an id of '{id}' while processing {nameof(DeleteAsync)}");
+                _context.Set<T>().Remove(entity);
+                await _context.SaveChangesAsync();
+
+                return true;
             }
-
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<bool> EnitityExists(int id)
-        {
-            var exists = await _context.Set<T>().FindAsync(id);
-            return exists != null ? true : false;
+            catch (Exception ex)
+            {
+                throw new Exception($"Something went wrong while saving {entity.GetType()} to DbSet", ex);
+            }            
         }
     }
 }
